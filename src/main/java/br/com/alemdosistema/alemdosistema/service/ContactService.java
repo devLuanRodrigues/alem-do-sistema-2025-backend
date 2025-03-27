@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Validated
@@ -26,8 +25,8 @@ public class ContactService {
     }
 
     public Contact updateContact(Long id, @Valid Contact contact) {
-        Contact existingContact = contactRepository.findById(contact.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Contato não encontrado com ID: " + contact.getId()));
+        Contact existingContact = contactRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Contato não encontrado com ID: " + id));
 
         existingContact.setTipoContato(contact.getTipoContato());
         existingContact.setValorContato(contact.getValorContato());
