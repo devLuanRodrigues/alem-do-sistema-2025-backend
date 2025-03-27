@@ -27,6 +27,10 @@ public class ClientService {
         return clientRepository.findById(id);
     }
 
+    public Optional<Client> findClientByCpf(String cpf) {
+        return clientRepository.findByCpf(cpf);
+    }
+
     public Client createClient(@Valid Client client){
 
         if (clientRepository.findByCpf(client.getCpf()).isPresent()) {

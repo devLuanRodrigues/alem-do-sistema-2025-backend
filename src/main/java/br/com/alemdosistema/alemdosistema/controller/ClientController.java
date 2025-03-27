@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -19,8 +20,6 @@ import java.util.UUID;
 public class ClientController {
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private ClientRepository clientRepository;
 
     @GetMapping
     public List<ClientDTO> listAllClients() {
@@ -29,6 +28,11 @@ public class ClientController {
                 .toList();
     }
 
+    @GetMapping("/{cpf}")
+    public ResponseEntity<ClientDTO> findClientByCpf(@PathVariable String cpf) {
+        Optional<Client> client = clientService.findClientByCpf(cpf);
+        return ResponseEntity.ok(ClientMapper.INSTANCE.clientToClientDTO(client.get()));
+    }
 
     @PostMapping
     public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO clientDTO) {
