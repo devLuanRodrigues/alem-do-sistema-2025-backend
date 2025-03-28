@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -29,6 +30,13 @@ public class ClientController {
                 .toList();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ClientDTO>> findClientByNameOrCpf(@RequestParam(required = false) String nome, @RequestParam(required = false) String cpf) {
+        List<Client> clients = clientService.findClientByNameOrCpf(nome, cpf);
+        return ResponseEntity.ok(clients.stream()
+                .map(ClientMapper.INSTANCE::clientToClientDTO)
+                .toList());
+    }
 
     @PostMapping
     public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO clientDTO) {

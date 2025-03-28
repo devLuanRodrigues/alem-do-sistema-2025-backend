@@ -51,8 +51,15 @@ public class ContactController {
         return ResponseEntity.ok(ContactMapper.INSTANCE.contactToContactDTO(updatedContact));
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContact(@PathVariable UUID clientId, @PathVariable Long id) {
+        Contact contact = contactService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Contato não encontrado com ID: " + id));
+
+        if (!contact.getClient().getId().equals(clientId)) {
+            throw new IllegalArgumentException("Contato não pertence ao cliente com ID: " + clientId);
+        }
+
         contactService.deleteContact(id);
         return ResponseEntity.noContent().build();
     }

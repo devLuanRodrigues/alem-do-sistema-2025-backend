@@ -63,6 +63,10 @@ public class Contact {
         this.observacao = observacao;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
     public void setClient(Client client) {
         this.client = client;
     }
