@@ -24,7 +24,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> findClientById(UUID id) {
+    public Optional<Client> findClientById(Long id) {
         return clientRepository.findById(id);
     }
 
@@ -51,7 +51,7 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Client updateClient(UUID id, @Valid Client client) {
+    public Client updateClient(Long id, @Valid Client client) {
         validateClient(client);
         Client existingClient = clientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + id));
@@ -68,8 +68,15 @@ public class ClientService {
         return clientRepository.save(existingClient);
     }
 
-    public void deleteClient(UUID id) {
-        clientRepository.deleteById(id);
+    public void deleteClient(Long id) {
+        try {
+            if (!clientRepository.existsById(id)) {
+                throw new IllegalArgumentException("Cliente não encontrado com ID: " + id);
+            }
+            clientRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao excluir cliente: " + e.getMessage());
+        }
     }
 
     private void validateClient(Client client) {

@@ -4,17 +4,15 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "cliente")
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nome;
 
@@ -29,7 +27,7 @@ public class Client {
 
     public Client(){}
 
-    public Client(UUID id, String nome, String cpf, LocalDate dataNascimento, String endereco) {
+    public Client(Long id, String nome, String cpf, LocalDate dataNascimento, String endereco) {
         setId(id);
         setNome(nome);
         setCpf(cpf);
@@ -37,11 +35,11 @@ public class Client {
         setEndereco(endereco);
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
