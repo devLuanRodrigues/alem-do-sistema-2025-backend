@@ -66,3 +66,23 @@ body {
 .btn:hover {
     opacity: 0.9;
 }
+
+input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #143D60;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-right: 10px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #EC5228;
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: #A9A9A9;
+    font-style: italic;
+}
