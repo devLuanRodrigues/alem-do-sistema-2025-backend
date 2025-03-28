@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +24,12 @@ public class ClientDTO {
 
     @Past(message = "A data de nascimento deve ser uma data passada.")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     private String endereco;
     private List<Contact> contato = new ArrayList<>();
 
-    public ClientDTO(UUID id, String nome, String cpf, Date dataNascimento, String endereco) {
+    public ClientDTO(UUID id, String nome, String cpf, LocalDate dataNascimento, String endereco) {
         setId(id);
         setNome(nome);
         setCpf(cpf);
@@ -60,11 +61,11 @@ public class ClientDTO {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

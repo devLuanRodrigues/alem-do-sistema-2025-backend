@@ -2,6 +2,7 @@ package br.com.alemdosistema.alemdosistema.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Client {
     @Column(unique = true)
     private String cpf;
 
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String endereco;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -28,7 +29,7 @@ public class Client {
 
     public Client(){}
 
-    public Client(UUID id, String nome, String cpf, Date dataNascimento, String endereco) {
+    public Client(UUID id, String nome, String cpf, LocalDate dataNascimento, String endereco) {
         setId(id);
         setNome(nome);
         setCpf(cpf);
@@ -60,11 +61,11 @@ public class Client {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

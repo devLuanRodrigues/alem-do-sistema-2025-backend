@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,7 @@ public class ClientService {
         if (!isValidCpf(client.getCpf())) {
             throw new IllegalArgumentException("CPF inválido!");
         }
-        if (client.getDataNascimento() != null && client.getDataNascimento().after(new Date())) {
+        if (client.getDataNascimento() != null && client.getDataNascimento().isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("A data de nascimento deve ser uma data passada.");
         }
     }
