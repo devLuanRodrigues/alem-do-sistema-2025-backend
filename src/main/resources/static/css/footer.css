@@ -6,7 +6,10 @@
     font-size: 1rem;
     color: #143D60;
     width: 100%;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .footer h3 {
