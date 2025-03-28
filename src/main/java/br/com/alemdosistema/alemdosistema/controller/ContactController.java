@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/clients/{clientId}/contacts")
@@ -30,7 +31,7 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<ContactDTO> createContact(@PathVariable Long clientId, @Valid @RequestBody ContactDTO contactDTO) {
+    public ResponseEntity<ContactDTO> createContact(@PathVariable UUID clientId, @Valid @RequestBody ContactDTO contactDTO) {
         Contact contact = ContactMapper.INSTANCE.contactDTOToContact(contactDTO);
 
         Client client = clientService.findClientById(clientId)
@@ -51,7 +52,7 @@ public class ContactController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteContact(@PathVariable Long clientId, @PathVariable Long id) {
+    public ResponseEntity<Void> deleteContact(@PathVariable UUID clientId, @PathVariable Long id) {
         Contact contact = contactService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Contato não encontrado com ID: " + id));
 

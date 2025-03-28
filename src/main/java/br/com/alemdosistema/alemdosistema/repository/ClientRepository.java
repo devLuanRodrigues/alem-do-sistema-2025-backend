@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ClientRepository extends JpaRepository<Client, Long> {
-    Optional<Client> findById(Long id);
+public interface ClientRepository extends JpaRepository<Client, UUID> {
+    Optional<Client> findById(UUID id);
     Optional<Client> findByNome(String nome);
 
     @Query("SELECT c FROM Client c WHERE c.cpf = ?1")

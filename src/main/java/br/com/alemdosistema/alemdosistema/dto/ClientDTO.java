@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Data
 public class ClientDTO {
-    private Long id;
+    private UUID id;
 
     @NotBlank(message = "Nome é obrigatório!")
     private String nome;
@@ -29,7 +29,7 @@ public class ClientDTO {
     private String endereco;
     private List<Contact> contato = new ArrayList<>();
 
-    public ClientDTO(Long id, String nome, String cpf, LocalDate dataNascimento, String endereco) {
+    public ClientDTO(UUID id, String nome, String cpf, LocalDate dataNascimento, String endereco) {
         setId(id);
         setNome(nome);
         setCpf(cpf);
@@ -37,11 +37,11 @@ public class ClientDTO {
         setEndereco(endereco);
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
