@@ -1,0 +1,22 @@
+.header {
+    background-color: #143D60;
+    color: #EB5B00;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    padding: 10px 0;
+}
+
+.navbar-header {
+    height: 40px;
+}
+
+.logo a{
+    height: 80px;
+    text-decoration: none;
+    color: #EB5B00;
+}
+
+.logo-content {
+    font-size: 24px;
+}
