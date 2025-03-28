@@ -1,6 +1,7 @@
 package br.com.alemdosistema.alemdosistema.model;
 
 import br.com.alemdosistema.alemdosistema.enums.ContactType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +21,7 @@ public class Contact {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Client client;
 
     public Contact(){}

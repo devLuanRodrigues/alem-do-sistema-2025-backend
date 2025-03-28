@@ -43,7 +43,7 @@ public class ContactController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ContactDTO> updateContact(@PathVariable UUID clientId, @PathVariable Long id,@Valid @RequestBody ContactDTO contactDTO) {
+    public ResponseEntity<ContactDTO> updateContact(@PathVariable Long clientId, @PathVariable Long id,@Valid @RequestBody ContactDTO contactDTO) {
         Contact contact = ContactMapper.INSTANCE.contactDTOToContact(contactDTO);
         contact.setId(id);
 

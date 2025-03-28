@@ -69,7 +69,14 @@ public class ClientService {
     }
 
     public void deleteClient(UUID id) {
-        clientRepository.deleteById(id);
+        try {
+            if (!clientRepository.existsById(id)) {
+                throw new IllegalArgumentException("Cliente não encontrado com ID: " + id);
+            }
+            clientRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao excluir cliente: " + e.getMessage());
+        }
     }
 
     private void validateClient(Client client) {
