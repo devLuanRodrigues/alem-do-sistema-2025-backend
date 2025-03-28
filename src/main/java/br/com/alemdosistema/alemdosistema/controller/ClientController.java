@@ -20,6 +20,8 @@ import java.util.UUID;
 public class ClientController {
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private ClientRepository clientRepository;
 
     @GetMapping
     public List<ClientDTO> listAllClients() {
@@ -28,10 +30,12 @@ public class ClientController {
                 .toList();
     }
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<ClientDTO> findClientByCpf(@PathVariable String cpf) {
-        Optional<Client> client = clientService.findClientByCpf(cpf);
-        return ResponseEntity.ok(ClientMapper.INSTANCE.clientToClientDTO(client.get()));
+    @GetMapping("/search")
+    public ResponseEntity<List<ClientDTO>> findClientByNameOrCpf(@RequestParam(required = false) String nome, @RequestParam(required = false) String cpf) {
+        List<Client> clients = clientService.findClientByNameOrCpf(nome, cpf);
+        return ResponseEntity.ok(clients.stream()
+                .map(ClientMapper.INSTANCE::clientToClientDTO)
+                .toList());
     }
 
     @PostMapping

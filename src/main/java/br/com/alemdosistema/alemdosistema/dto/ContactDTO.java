@@ -2,13 +2,14 @@ package br.com.alemdosistema.alemdosistema.dto;
 
 import br.com.alemdosistema.alemdosistema.enums.ContactType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class ContactDTO {
     private Long id;
 
-    @NotBlank(message = "O tipo de contato é obrigatório!")
+    @NotNull(message = "O tipo de contato é obrigatório!")
     private ContactType tipoContato;
 
     @NotBlank(message = "O valor (informação) de contato é obrigatório!")

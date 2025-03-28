@@ -1,7 +1,9 @@
 package br.com.alemdosistema.alemdosistema.dto;
 
 import br.com.alemdosistema.alemdosistema.model.Contact;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -18,7 +20,11 @@ public class ClientDTO {
 
     @NotBlank(message = "CPF é obrigatório!")
     private String cpf;
+
+    @Past(message = "A data de nascimento deve ser uma data passada.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
+
     private String endereco;
     private List<Contact> contato = new ArrayList<>();
 
