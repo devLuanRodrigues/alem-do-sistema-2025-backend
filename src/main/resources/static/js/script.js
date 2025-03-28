@@ -1,6 +1,5 @@
 function deleteClient(button) {
     const clientId = button.getAttribute('data-client-id');
-    console.log("Client ID capturado:", clientId); // Depuração
 
     if (!clientId || clientId === "undefined") {
         alert("Erro: ID do cliente não encontrado!");
@@ -19,7 +18,6 @@ function deleteClient(button) {
             .catch(error => alert('Erro ao excluir cliente: ' + error.message));
     }
 }
-
 
 function addContact(){
     alert('Função ainda não implementada!');
