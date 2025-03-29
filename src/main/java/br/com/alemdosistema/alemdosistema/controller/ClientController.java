@@ -9,12 +9,14 @@ import br.com.alemdosistema.alemdosistema.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/clients")
 public class ClientController {
     @Autowired
@@ -27,6 +29,14 @@ public class ClientController {
         return clientService.listAllClients().stream()
                 .map(ClientMapper.INSTANCE::clientToClientDTO)
                 .toList();
+    }
+
+    @GetMapping("/{id}")
+    public String getClientById(@PathVariable UUID id, Model model) {
+        Client client = clientService.findClientById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + id));
+        model.addAttribute("client", ClientMapper.INSTANCE.clientToClientDTO(client));
+        return "profile";
     }
 
     @GetMapping("/search")

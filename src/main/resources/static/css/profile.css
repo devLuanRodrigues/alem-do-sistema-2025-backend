@@ -1,0 +1,55 @@
+.personal-info, .contact-info {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #143D60;
+    border-radius: 8px;
+    background-color: #F9F9F9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.personal-info h2, .contact-info h2 {
+    color: #143D60;
+    margin-bottom: 10px;
+}
+
+.info-item, .contact-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #DBDBDB;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.contact-item {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-success {
+    margin-top: 10px;
+}
+
+.btn-secondary {
+    background-color: #143D60;
+    color: #DBDBDB;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+button.btn-primary, button.btn-secondary {
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    margin: 0 10px;
+}
