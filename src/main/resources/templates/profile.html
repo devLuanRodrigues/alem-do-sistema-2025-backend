@@ -6,14 +6,15 @@
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
     <link rel="stylesheet" th:href="@{/css/profile.css}">
 </head>
 <body>
-<header th:replace="fragment/header :: header"></header>
+<header th:replace="~{fragment/header :: header}"></header>
 
 <main class="container">
     <div class="button-container">
-        <button class="btn btn-primary" onclick="editClient()">Editar Dados</button>
+        <button class="btn btn-primary" th:attr="onclick='openEditModal(\'' + ${client.id} + '\')'">Editar Dados</button>
         <button class="btn btn-secondary" onclick="goBack()">Retornar</button>
     </div>
 
@@ -46,11 +47,11 @@
             </div>
         </div>
         <button class="btn btn-success" onclick="addContact()">Adicionar Contato</button>
-        <button class="btn btn-primary" onclick="confirmAddContact()">Confirmar</button>
     </div>
 </main>
 
-<footer th:replace="fragment/footer :: footer"></footer>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+<th:block th:replace="~{editModal :: editModal(${client.id}, ${client.nome}, ${client.cpf}, ${client.dataNascimento}, ${client.endereco}, ${client.contato})}"></th:block>
 <script src="/js/script.js"></script>
 </body>
 </html>
