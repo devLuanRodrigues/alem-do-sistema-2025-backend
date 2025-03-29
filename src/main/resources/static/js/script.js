@@ -1,26 +1,80 @@
-function deleteClient(button) {
-    const clientId = button.getAttribute('data-client-id');
+function addClient(event){
+    event.preventDefault();
 
-    if (!clientId || clientId === "undefined") {
-        alert("Erro: ID do cliente não encontrado!");
-        return;
-    }
+    const name = document.getElementById("clientName").value;
+    const cpf = document.getElementById("clientCpf").value;
+    let birthDate = document.getElementById("clientBirthDate").value;
+    const address = document.getElementById("clientAddress").value;
 
-    if (confirm('Tem certeza que deseja excluir este cliente?')) {
-        fetch(`/clients/${clientId}`, { method: 'DELETE' })
-            .then(response => {
-                if (response.ok) {
-                    location.reload();
-                } else {
-                    return response.text().then(err => { throw new Error(err); });
-                }
-            })
-            .catch(error => alert('Erro ao excluir cliente: ' + error.message));
-    }
+    birthDate = birthDate.split("-").reverse().join("/");
+
+    const contacts = Array.from(document.querySelectorAll(".contact-item")).map(item => {
+        return {
+            tipoContato: item.querySelector(".contactType").value,
+            valorContato: item.querySelector(".contactValue").value,
+            observacao: item.querySelector(".contactObservation").value
+        };
+    });
+
+    const clientData = {
+      nome: name,
+      cpf: cpf,
+      dataNascimento: birthDate,
+      endereco: address,
+      contato: contacts
+    };
+
+    fetch('http://localhost:8080/clients', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify((clientData))
+    })
+        .then(response => {
+            console.log(response)
+            console.log(clientData)
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar cliente');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Cliente cadastrado com sucesso!');
+            document.getElementById("clientForm").reset();
+            document.getElementById("contactList").innerHTML = '';
+            closeModal();
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Erro ao cadastrar cliente!')
+        });
 }
 
-function addContact(){
-    alert('Função ainda não implementada!');
+function addContact() {
+    const contactList = document.getElementById("contactList");
+    const contactItem = document.createElement("div");
+    contactItem.className = "contact-item";
+    contactItem.innerHTML = `
+        <select class="contactType" required>
+            <option value="" disabled selected>Tipo de Contato</option>
+            <option value="TELEFONE">Telefone</option>
+            <option value="EMAIL">Email</option>
+        </select>
+        <input type="text" class="contactValue" placeholder="Valor do Contato" required/>
+        <input type="text" class="contactObservation" placeholder="Observação"/>
+        <button type="button" class="btn btn-danger" onclick="removeContact(this)">Remover</button>
+    `;
+
+    const separator = document.createElement("div");
+    separator.className = "contact-separator";
+
+    contactList.appendChild(contactItem);
+}
+
+function removeContact(button) {
+    const contactItem = button.parentElement;
+    contactItem.remove();
 }
 
 function searchClients() {
@@ -64,4 +118,40 @@ function searchClients() {
             console.error(error);
             alert('Erro ao buscar clientes.');
         });
+}
+
+function deleteClient(button) {
+    const clientId = button.getAttribute('data-client-id');
+
+    if (!clientId || clientId === "undefined") {
+        alert("Erro: ID do cliente não encontrado!");
+        return;
+    }
+
+    if (confirm('Tem certeza que deseja excluir este cliente?')) {
+        fetch(`/clients/${clientId}`, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    return response.text().then(err => { throw new Error(err); });
+                }
+            })
+            .catch(error => alert('Erro ao excluir cliente: ' + error.message));
+    }
+}
+
+function openModal() {
+    document.getElementById("clientModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("clientModal").style.display = "none";
+}
+
+window.onclick = function (event) {
+    const modal = document.getElementById("clientModal");
+    if(event.target === modal) {
+        closeModal();
+    }
 }

@@ -1,0 +1,167 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal h2, h3 {
+    text-align: center;
+    font-size: 24px;
+    color: #143D60;
+    margin-bottom: 20px;
+}
+
+.modal-content {
+    background-color: #FFFFFF;
+    margin: 5% auto;
+    padding: 40px;
+    border: none;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    color: #AAA;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #EC5228;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #143D60;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-6 {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.col-6:last-child {
+    margin-right: 0;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #143D60;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="date"] {
+    width: 30%;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #EC5228;
+    outline: none;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.contact-item select,
+.contact-item input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.contact-item button {
+    flex-shrink: 0;
+    padding: 10px 15px;
+    background-color: #EC5228;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.contact-item button:hover {
+    background-color: #c0392b;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-group .btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF;
+    transition: background-color 0.3s;
+}
+
+.button-group .btn-success {
+    background-color: #143D60;
+}
+
+.button-group .btn-success:hover {
+    background-color: #0e2a4d;
+}
+
+.button-group .btn-primary {
+    background-color: #143D60;
+}
+
+.button-group .btn-primary:hover {
+    background-color: #0e2a4d;
+}
+
+/* Ajustes para os campos de cliente */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group input[type="text"] {
+    width: 48%;
+    margin-right: 10px;
+}
+
+.form-group input[type="date"] {
+    width: 48%;
+    margin-right: 10px;
+}
+
+.form-group:last-child input[type="text"],
+.form-group:last-child input[type="date"] {
+    margin-right: 0;
+}
