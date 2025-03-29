@@ -120,6 +120,103 @@ function searchClients() {
         });
 }
 
+function closeEditModal() {
+    document.getElementById('editClientModal').style.display = 'none';
+}
+
+function closeConfirmationModal() {
+    document.getElementById('confirmationModal').style.display = 'none';
+}
+
+let currentClientId;
+
+function openEditModal(id) {
+    currentClientId = id;
+    const modal = document.getElementById('editClientModal');
+
+    if (!modal) {
+        console.error("Modal não encontrado no DOM!");
+        return;
+    }
+
+    modal.style.display = 'block';
+    console.log("Modal aberto com ID do cliente:", currentClientId);
+}
+
+function updateClient(event) {
+    event.preventDefault();
+
+    const nameInput = document.getElementById('editClientName');
+    const cpfInput = document.getElementById('editClientCpf');
+    const birthDateInput = document.getElementById('editClientBirthDate');
+    const addressInput = document.getElementById('editClientAddress');
+
+    const modal = document.getElementById('editClientModal');
+    const id = modal.getAttribute('data-id');
+
+    if (!nameInput || !cpfInput || !birthDateInput || !addressInput || !id) {
+        console.error('Um ou mais elementos do formulário não foram encontrados.');
+        return;
+    }
+
+    const clientData = {
+        nome: nameInput.value,
+        cpf: cpfInput.value,
+        dataNascimento: formatarData(birthDateInput.value),
+        endereco: addressInput.value,
+        contato: []
+    };
+
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach(contactItem => {
+        const contactType = contactItem.querySelector('.contactType');
+        const contactValue = contactItem.querySelector('.contactValue');
+        const contactObservation = contactItem.querySelector('.contactObservation');
+
+        if (!contactType || !contactValue || !contactObservation) {
+            console.error('Um ou mais elementos de contato não foram encontrados.');
+            return;
+        }
+
+        clientData.contato.push({
+            tipoContato: contactType.value,
+            valorContato: contactValue.value,
+            observacao: contactObservation.value
+        });
+    });
+
+    console.log(`Fazendo requisição para: /clients/${id}`);
+    console.log('Dados do cliente:', clientData);
+
+    fetch(`/clients/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(clientData),
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Erro ao atualizar os dados do cliente: ' + response.statusText);
+        })
+        .then(data => {
+            console.log('Cliente atualizado com sucesso:', data);
+            alert('Dados do cliente atualizados com sucesso!');
+            closeEditModal();
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao atualizar os dados do cliente: ' + error.message);
+        });
+}
+
+function formatarData(data) {
+    const partes = data.split('-');
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
 function deleteClient(button) {
     const clientId = button.getAttribute('data-client-id');
 

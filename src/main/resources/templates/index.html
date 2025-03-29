@@ -30,7 +30,7 @@
                 <tr th:each="client : ${clients}">
                     <td th:text="${client.cpf}"></td>
                     <td th:text="${client.nome}"></td>
-                    <td th:text="${client.contato[0].valorContato}"></td>
+                    <td th:text="${client.contato.size() > 0 ? client.contato[0].valorContato : 'N/A'}"></td>
                     <td>
                         <a th:href="@{/clients/{id}(id=${client.id})}" class="btn btn-primary">Perfil</a>
                         <button class="btn btn-danger" th:data-client-id="${client.id}" onclick="deleteClient(this)">Excluir</button>
