@@ -56,11 +56,12 @@ body {
 .btn-primary, .btn-success {
     background-color: #143D60;
     color: #DBDBDB;
+    text-decoration: none;
 }
 
 .btn-danger {
     background-color: #EC5228;
-    color: #143D60;
+    color: #DBDBDB;
 }
 
 .btn:hover {
