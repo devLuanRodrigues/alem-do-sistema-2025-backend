@@ -39,8 +39,4 @@ public class ContactService {
 
         return contactRepository.save(existingContact);
     }
-
-    public void deleteContact(Long id) {
-        contactRepository.deleteById(id);
-    }
 }

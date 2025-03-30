@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/clients/{clientId}/contacts")
@@ -31,7 +30,7 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<ContactDTO> createContact(@PathVariable UUID clientId, @Valid @RequestBody ContactDTO contactDTO) {
+    public ResponseEntity<ContactDTO> createContact(@PathVariable Long clientId, @Valid @RequestBody ContactDTO contactDTO) {
         Contact contact = ContactMapper.INSTANCE.contactDTOToContact(contactDTO);
 
         Client client = clientService.findClientById(clientId)
@@ -43,7 +42,7 @@ public class ContactController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ContactDTO> updateContact(@PathVariable UUID clientId, @PathVariable Long id,@Valid @RequestBody ContactDTO contactDTO) {
+    public ResponseEntity<ContactDTO> updateContact(@PathVariable Long clientId, @PathVariable Long id,@Valid @RequestBody ContactDTO contactDTO) {
         Contact contact = ContactMapper.INSTANCE.contactDTOToContact(contactDTO);
         contact.setId(id);
 
