@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Contato</title>
+  <link rel="stylesheet" th:href="@{/css/modal.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+<div th:fragment="editContactModal(contactId, contactType, contactValue, contactObservation)">
+  <div id="editContactModal" class="modal" th:data-id="${contactId}">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditContactModal()">&times;</span>
+      <h2>Editar Contato</h2>
+      <form id="editContactForm" onsubmit="return updateContact(event)">
+        <div class="form-group">
+          <label for="editContactType">Tipo de Contato:</label>
+          <select id="editContactType" required>
+            <option value="TELEFONE" th:selected="${contactType == 'TELEFONE'}">Telefone</option>
+            <option value="EMAIL" th:selected="${contactType == 'EMAIL'}">Email</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editContactValue">Valor do Contato:</label>
+          <input type="text" id="editContactValue" th:value="${contactValue}" placeholder="Valor do Contato" required />
+        </div>
+        <div class="form-group">
+          <label for="editContactObservation">Observação:</label>
+          <input type="text" id="editContactObservation" th:value="${contactObservation}" placeholder="Observação" />
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
