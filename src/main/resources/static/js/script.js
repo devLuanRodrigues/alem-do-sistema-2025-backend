@@ -131,6 +131,67 @@ function submitContact(button) {
         });
 }
 
+function openEditContactModal(button) {
+    const contactId = button.getAttribute('data-id');
+    const contactType = button.getAttribute('data-type');
+    const contactValue = button.getAttribute('data-value');
+    const contactObservation = button.getAttribute('data-observation');
+    const clientId = button.getAttribute('data-client-id');
+
+    document.getElementById('editContactModal').style.display = 'block';
+    document.getElementById('editContactModal').setAttribute('data-id', contactId);
+    document.getElementById('editContactModal').setAttribute('data-client-id', clientId);
+    document.getElementById('editContactType').value = contactType;
+    document.getElementById('editContactValue').value = contactValue;
+    document.getElementById('editContactObservation').value = contactObservation;
+}
+
+function closeEditContactModal() {
+    document.getElementById('editContactModal').style.display = 'none';
+}
+
+function updateContact(event) {
+    event.preventDefault();
+
+    const clientId = document.getElementById('editContactModal').getAttribute('data-client-id');
+    const contactId = document.getElementById('editContactModal').getAttribute('data-id');
+
+    const contactType = document.getElementById('editContactType').value;
+    const contactValue = document.getElementById('editContactValue').value;
+    const contactObservation = document.getElementById('editContactObservation').value;
+
+    const contactData = {
+        tipoContato: contactType,
+        valorContato: contactValue,
+        observacao: contactObservation
+    };
+
+    console.log('Dados do contato:', JSON.stringify(contactData)); // Log para verificar os dados
+
+    fetch(`/clients/${clientId}/contacts/${contactId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactData),
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Erro ao atualizar contato: ' + response.statusText);
+        })
+        .then(data => {
+            console.log('Contato atualizado com sucesso:', data);
+            alert('Contato atualizado com sucesso!');
+            closeEditContactModal();
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao atualizar contato: ' + error.message);
+        });
+}
+
 function removeContact(button) {
     const contactItem = button.parentElement;
     contactItem.remove();

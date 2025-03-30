@@ -43,9 +43,16 @@
                     <p><strong>Valor:</strong> <span th:text="${contact.valorContato}"></span></p>
                     <p><strong>Observação:</strong> <span th:text="${contact.observacao}"></span></p>
                 </div>
-                <button class="btn btn-danger" onclick="removeContact(this)">Excluir Contato</button>
+                <button class="btn btn-warning"
+                        th:data-id="${contact.id}"
+                        th:data-type="${contact.tipoContato}"
+                        th:data-value="${contact.valorContato}"
+                        th:data-observation="${contact.observacao}"
+                        th:data-client-id="${client.id}"
+                        onclick="openEditContactModal(this)">
+                    Editar Contato
+                </button>
             </div>
-        </div>
 
         <button class="btn btn-success" onclick="toggleContactForm()">Adicionar Novo Contato</button>
 
@@ -60,10 +67,12 @@
             <button class="btn btn-primary" th:data-client-id="${client.id}" onclick="submitContact(this)">Adicionar Contato</button>
         </div>
     </div>
+    </div>
 </main>
 
 <footer th:replace="~{fragment/footer :: footer}"></footer>
 <th:block th:replace="~{editModal :: editModal(${client.id}, ${client.nome}, ${client.cpf}, ${client.dataNascimento}, ${client.endereco}, ${client.contato})}"></th:block>
+<th:block th:replace="~{editContactModal :: editContactModal(null, null, null, null)}"></th:block>
 <script src="/js/script.js"></script>
 </body>
 </html>
