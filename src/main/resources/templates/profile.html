@@ -46,7 +46,19 @@
                 <button class="btn btn-danger" onclick="removeContact(this)">Excluir Contato</button>
             </div>
         </div>
-        <button class="btn btn-success" onclick="addContact()">Adicionar Contato</button>
+
+        <button class="btn btn-success" onclick="toggleContactForm()">Adicionar Novo Contato</button>
+
+        <div id="addContactForm" style="display: none;">
+            <select class="contactType" required>
+                <option value="" disabled selected>Tipo de Contato</option>
+                <option value="TELEFONE">Telefone</option>
+                <option value="EMAIL">Email</option>
+            </select>
+            <input type="text" class="contactValue" placeholder="Valor do Contato" required />
+            <input type="text" class="contactObservation" placeholder="Observação" />
+            <button class="btn btn-primary" th:data-client-id="${client.id}" onclick="submitContact(this)">Adicionar Contato</button>
+        </div>
     </div>
 </main>
 

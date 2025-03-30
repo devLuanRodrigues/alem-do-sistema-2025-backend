@@ -72,6 +72,65 @@ function addContact() {
     contactList.appendChild(contactItem);
 }
 
+function toggleContactForm() {
+    const form = document.getElementById("addContactForm");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+}
+
+function submitContact(button) {
+    const clientId = button.getAttribute('data-client-id');
+    const contactType = document.querySelector('.contactType').value;
+    const contactValue = document.querySelector('.contactValue').value;
+    const contactObservation = document.querySelector('.contactObservation').value;
+
+    const contactData = {
+        tipoContato: contactType,
+        valorContato: contactValue,
+        observacao: contactObservation
+    };
+
+    fetch(`/clients/${clientId}/contacts`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactData),
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Erro ao adicionar contato: ' + response.statusText);
+        })
+        .then(data => {
+            console.log('Contato adicionado com sucesso:', data);
+            alert('Contato adicionado com sucesso!');
+
+            const contactList = document.getElementById("contactList");
+            const contactItem = document.createElement("div");
+            contactItem.className = "contact-item";
+            contactItem.innerHTML = `
+            <div>
+                <p><strong>Tipo:</strong> <span>${data.tipoContato}</span></p>
+                <p><strong>Valor:</strong> <span>${data.valorContato}</span></p>
+                <p><strong>Observação:</strong> <span>${data.observacao}</span></p>
+            </div>
+            <button class="btn btn-danger" onclick="removeContact(this)">Excluir Contato</button>
+        `;
+            contactList.appendChild(contactItem);
+
+            document.querySelector('.contactType').value = "";
+            document.querySelector('.contactValue').value = "";
+            document.querySelector('.contactObservation').value = "";
+
+            document.getElementById("addContactForm").style.display = "none";
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao adicionar contato: ' + error.message);
+        });
+}
+
 function removeContact(button) {
     const contactItem = button.parentElement;
     contactItem.remove();
@@ -122,10 +181,6 @@ function searchClients() {
 
 function closeEditModal() {
     document.getElementById('editClientModal').style.display = 'none';
-}
-
-function closeConfirmationModal() {
-    document.getElementById('confirmationModal').style.display = 'none';
 }
 
 let currentClientId;
@@ -185,6 +240,7 @@ function updateClient(event) {
         });
     });
 
+    /* Debug */
     console.log(`Fazendo requisição para: /clients/${id}`);
     console.log('Dados do cliente:', clientData);
 
