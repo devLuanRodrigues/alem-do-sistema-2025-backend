@@ -1,3 +1,19 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
 .footer {
     background-color: #DBDBDB;
     border-top: 1px solid #143D60;
@@ -6,8 +22,7 @@
     font-size: 1rem;
     color: #143D60;
     width: 100%;
-    position: fixed;
-    bottom: 0;
+    position: relative;
     left: 0;
     z-index: 1000;
 }
