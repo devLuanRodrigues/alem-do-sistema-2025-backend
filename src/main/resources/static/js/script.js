@@ -166,7 +166,7 @@ function updateContact(event) {
         observacao: contactObservation
     };
 
-    console.log('Dados do contato:', JSON.stringify(contactData)); // Log para verificar os dados
+    console.log('Dados do contato:', JSON.stringify(contactData));
 
     fetch(`/clients/${clientId}/contacts/${contactId}`, {
         method: 'PUT',

@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Validated
@@ -24,7 +23,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> findClientById(UUID id) {
+    public Optional<Client> findClientById(Long id) {
         return clientRepository.findById(id);
     }
 
@@ -51,7 +50,7 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Client updateClient(UUID id, @Valid Client client) {
+    public Client updateClient(Long id, @Valid Client client) {
         validateClient(client);
         Client existingClient = clientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + id));
@@ -68,7 +67,7 @@ public class ClientService {
         return clientRepository.save(existingClient);
     }
 
-    public void deleteClient(UUID id) {
+    public void deleteClient(Long id) {
         try {
             if (!clientRepository.existsById(id)) {
                 throw new IllegalArgumentException("Cliente não encontrado com ID: " + id);
@@ -95,6 +94,6 @@ public class ClientService {
     }
 
     private boolean isValidCpf(String cpf) {
-        return cpf.matches("\\d{11}");
+        return cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
     }
 }
