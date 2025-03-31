@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil do Cliente</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+
+<main class="container">
+    <div class="button-container">
+        <button class="btn btn-primary" th:attr="onclick='openEditModal(\'' + ${client.id} + '\')'">Editar Dados</button>
+    </div>
+
+    <div class="personal-info">
+        <h2>Dados Pessoais</h2>
+        <div class="info-item">
+            <p><strong>Nome:</strong> <span th:text="${client.nome}"></span></p>
+        </div>
+        <div class="info-item">
+            <p><strong>CPF:</strong> <span th:text="${client.cpf}"></span></p>
+        </div>
+        <div class="info-item">
+            <p><strong>Data de Nascimento:</strong> <span th:text="${client.dataNascimento}"></span></p>
+        </div>
+        <div class="info-item">
+            <p><strong>Endereço:</strong> <span th:text="${client.endereco}"></span></p>
+        </div>
+    </div>
+
+    <div class="contact-info">
+        <h2>Contatos</h2>
+        <div id="contactList">
+            <div th:each="contact : ${client.contato}" class="contact-item">
+                <div>
+                    <p><strong>Tipo:</strong> <span th:text="${contact.tipoContato}"></span></p>
+                    <p><strong>Valor:</strong> <span th:text="${contact.valorContato}"></span></p>
+                    <p><strong>Observação:</strong> <span th:text="${contact.observacao}"></span></p>
+                </div>
+                <button class="btn btn-warning"
+                        th:data-id="${contact.id}"
+                        th:data-type="${contact.tipoContato}"
+                        th:data-value="${contact.valorContato}"
+                        th:data-observation="${contact.observacao}"
+                        th:data-client-id="${client.id}"
+                        onclick="openEditContactModal(this)">
+                    Editar Contato
+                </button>
+            </div>
+
+        <button class="btn btn-success" onclick="toggleContactForm()">Adicionar Novo Contato</button>
+
+        <div id="addContactForm" style="display: none;">
+            <select class="contactType" required>
+                <option value="" disabled selected>Tipo de Contato</option>
+                <option value="TELEFONE">Telefone</option>
+                <option value="EMAIL">Email</option>
+            </select>
+            <input type="text" class="contactValue" placeholder="Valor do Contato" required />
+            <input type="text" class="contactObservation" placeholder="Observação" />
+            <button class="btn btn-primary" th:data-client-id="${client.id}" onclick="submitContact(this)">Adicionar Contato</button>
+        </div>
+    </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+<th:block th:replace="~{editModal :: editModal(${client.id}, ${client.nome}, ${client.cpf}, ${client.dataNascimento}, ${client.endereco}, ${client.contato})}"></th:block>
+<th:block th:replace="~{editContactModal :: editContactModal(null, null, null, null)}"></th:block>
+<script src="/js/script.js"></script>
+</body>
+</html>

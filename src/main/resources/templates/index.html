@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comércio S.A</title>
+    <link rel="stylesheet" th:href="@{css/header.css}">
+    <link rel="stylesheet" th:href="@{css/footer.css}">
+    <link rel="stylesheet" th:href="@{css/modal.css}">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+</head>
+<body>
+    <header th:replace="fragment/header :: header"></header>
+
+    <main class="container">
+        <div class="text-center">
+            <input type="text" id="searchName" placeholder="Buscar por Nome"/>
+            <input type="text" id="searchCpf" placeholder="Buscar por CPF"/>
+            <button class="btn btn-primary" onclick="searchClients()">Buscar</button>
+            <button class="btn btn-success" onclick="openModal()">Adicionar Cliente</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Contato</th>
+                </tr>
+            </thead>
+            <tbody id="clientTableBody">
+                <tr th:each="client : ${clients}">
+                    <td th:text="${client.cpf}"></td>
+                    <td th:text="${client.nome}"></td>
+                    <td th:text="${client.contato.size() > 0 ? client.contato[0].valorContato : 'N/A'}"></td>
+                    <td>
+                        <a th:href="@{/clients/{id}(id=${client.id})}" class="btn btn-primary">Perfil</a>
+                        <button class="btn btn-danger" th:data-client-id="${client.id}" onclick="deleteClient(this)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <th:block th:replace="modal :: clientModal()"></th:block>
+    <footer th:replace="fragment/footer :: footer"></footer>
+    <script src="/js/script.js"></script>
+</body>
+</html>

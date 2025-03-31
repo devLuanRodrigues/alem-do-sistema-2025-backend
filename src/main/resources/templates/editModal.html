@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Dados</title>
+  <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+<div th:fragment="editModal(id, name, cpf, birthDate, address, contacts)">
+  <div id="editClientModal" class="modal" th:data-id="${id}">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h2>Editar Cliente</h2>
+      <form id="editClientForm" onsubmit="return updateClient(event)">
+        <div class="form-group">
+          <label for="editClientName">Nome:</label>
+          <input type="text" id="editClientName" placeholder="Nome" th:value="${name}" required />
+        </div>
+        <div class="form-group">
+          <label for="editClientCpf">CPF:</label>
+          <input type="text" id="editClientCpf" placeholder="XXX.XXX.XXX-XX" th:value="${cpf}" required />
+        </div>
+        <div class="form-group">
+          <label for="editClientBirthDate">Data de Nascimento:</label>
+          <input type="date" id="editClientBirthDate" th:value="${birthDate}" required />
+        </div>
+        <div class="form-group">
+          <label for="editClientAddress">Endereço:</label>
+          <input type="text" id="editClientAddress" placeholder="Endereço" th:value="${address}" />
+        </div>
+        <h3>Contatos</h3>
+        <div id="editContactList">
+          <div th:each="contact : ${contacts}" class="contact-item">
+            <select class="contactType" required>
+              <option value="" disabled selected>Tipo de Contato</option>
+              <option value="TELEFONE" th:selected="${contact.tipoContato == 'TELEFONE'}">Telefone</option>
+              <option value="EMAIL" th:selected="${contact.tipoContato == 'EMAIL'}">Email</option>
+            </select>
+            <input type="text" class="contactValue" th:value="${contact.valorContato}" placeholder="Valor do Contato" required />
+            <input type="text" class="contactObservation" th:value="${contact.observacao}" placeholder="Observação" />
+            <button type="button" class="btn btn-danger" onclick="removeContact(this)">Remover</button>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

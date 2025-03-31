@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Cliente</title>
+    <link rel="stylesheet" th:href="@{css/modal.css}">
+</head>
+<body>
+<div th:fragment="clientModal()">
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Cadastrar Cliente</h2>
+            <form id="clientForm" onsubmit="return addClient(event)">
+                <div class="form-group">
+                    <label for="clientName">Nome:</label>
+                    <input type="text" id="clientName" placeholder="Nome" required />
+                </div>
+                <div class="form-group">
+                    <label for="clientCpf">CPF:</label>
+                    <input type="text" id="clientCpf" placeholder="XXX.XXX.XXX-XX" required />
+                </div>
+                <div class="form-group">
+                    <label for="clientBirthDate">Data de Nascimento:</label>
+                    <input type="date" id="clientBirthDate" required />
+                </div>
+                <div class="form-group">
+                    <label for="clientAddress">Endereço:</label>
+                    <input type="text" id="clientAddress" placeholder="Endereço" />
+                </div>
+
+                <h3>Contatos</h3>
+                <div id="contactList">
+                    <div class="contact-item">
+                        <select class="contactType" required>
+                            <option value="" disabled selected>Tipo de Contato</option>
+                            <option value="TELEFONE">Telefone</option>
+                            <option value="EMAIL">Email</option>
+                        </select>
+                        <input type="text" class="contactValue" placeholder="Valor do Contato" required />
+                        <input type="text" class="contactObservation" placeholder="Observação" />
+                        <button type="button" class="btn btn-danger" onclick="removeContact(this)">Remover</button>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-success" onclick="addContact()">Adicionar Contato</button>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
