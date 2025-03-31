@@ -33,8 +33,8 @@
 │   │       │   │-- modal.html
 │   │       │   │-- profile.html
 │   │       │-- application.properties
-│-- pom.xml               # Configuração do Maven
-│-- README.md             # Documentação do projeto
+│-- pom.xml               
+│-- README.md            
 │-- .gitignore       
 ````
 - Este projeto foi desenvolvido e estruturado de acordo com o padrão arquitetural MVC (Model-View-Controller).
